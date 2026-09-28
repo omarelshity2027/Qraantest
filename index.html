@@ -173,7 +173,7 @@ reports(){const f=st.f;return`<h2>التقارير</h2><div class="card"><div cl
 reports_(){rep()},
 import(){return`<h2>استيراد Excel</h2><div class="card"><p class="mu">الأعمدة: الاسم، الرقم القومي، تاريخ الميلاد، المحفظ، المستوى، رقم الهاتف، المحافظة، المركز، ملاحظات، النوع (اختياري)</p><input type="file" accept=".xlsx,.xls,.csv" onchange="impFile(this.files[0])"><div id="ip"></div></div>`},
 settings(){const s=ST();return`<h2>الإعدادات</h2><div class="card"><h3>إعدادات المسابقة</h3><div class="grid">${[['name','اسم المسابقة'],['org','الجهة المنظمة'],['year','سنة المسابقة'],['pass','نسبة النجاح %'],['minAge','الحد الأدنى للعمر'],['maxAge','الحد الأقصى للعمر']].map(([k,l])=>`<div><label>${l}</label><input id="s_${k}" value="${e(s[k])}"></div>`).join('')}</div><button class="p" style="margin-top:12px" onclick="saveSet()">حفظ الإعدادات</button></div>
-  <div class="card"><h3>المستويات</h3>${s.levels.map((l,i)=>`<div class="row" style="margin-top:6px"><input class="f" value="${e(l)}" onchange="lvl(${i},'r',this.value)"><button onclick="lvl(${i},'u')">▲</button><button onclick="lvl(${i},'d')">▼</button><button class="d" onclick="conf('سيتم حذف هذا المستوى من القائمة.',()=>lvl(${i},'x'))">حذف</button></div>`).join('')}<button style="margin-top:10px" onclick="lvl(0,'a')">+ إضافة مستوى</button></div>`}
+  <div class="card"><h3>المستويات</h3>${s.levels.map((l,i)=>`<div class="row" style="margin-top:6px"><input class="f" value="${e(l)}" onchange="lvl(${i},'r',this.value)"><button onclick="lvl(${i},'u')">▲</button><button onclick="lvl(${i},'d')">▼</button><button class="d" onclick="conf('سيتم حذف هذا المستوى من القائمة.',()=>lvl(${i},'x'))">حذف</button></div>`).join('')}<button style="margin-top:10px" onclick="lvl(0,'a')">+ إضافة مستوى</button></div><div class="card"><h3 class="no">منطقة الخطر</h3><p class="mu">حذف جميع الطلاب والمحفظين نهائيًا.</p><button class="d" onclick="wipeAll()">حذف كل البيانات</button></div>`}
 };
 function renderList(){const r=S.search(st.q,st.sf),n=20,p=r.slice(st.pg*n,st.pg*n+n);
   $('#ls').innerHTML=(p.map(s=>`<div class="s"><div><b style="cursor:pointer" onclick="go('student','${s.id}')">${e(s.name)}</b><div class="mu">${e(s.level)} — ${gen(s)||'—'} — <span class="${cls(s)}">${stat(s)}${s.ev?' '+s.ev.pct+'%':''}</span></div></div>
@@ -216,6 +216,13 @@ function impOk(){const n=st.imp.filter(x=>x.s==='جديد').map(({s,...x})=>({..
   DB.save();DB.set('students',[...n,...SS()]);st.imp=null;tst(`تم استيراد ${n.length} طالب`);go('students')}
 function saveSet(){const s=ST();['name','org'].forEach(k=>s[k]=$('#s_'+k).value);['year','pass','minAge','maxAge'].forEach(k=>s[k]=+$('#s_'+k).value||0);if(s.pass<0||s.pass>100)return tst('يرجى إدخال نسبة صحيحة بين 0 و100',1);DB.set('settings',s);tst('تم حفظ الإعدادات');draw()}
 function lvl(i,a,v){const l=ST().levels;if(a==='r')l[i]=v;if(a==='x')l.splice(i,1);if(a==='a')l.push('مستوى جديد');if(a==='u'&&i>0)[l[i-1],l[i]]=[l[i],l[i-1]];if(a==='d'&&i<l.length-1)[l[i+1],l[i]]=[l[i],l[i+1]];DB.save();draw()}
-$('#mn').innerHTML='<p class="mu">جاري تحميل البيانات...</p>';
+function wipeAll(){
+  modal(`<h3 class="no">حذف كل البيانات</h3><p>سيتم حذف جميع الطلاب والمحفظين ونتائجهم نهائيًا ولا يمكن التراجع. لتأكيد الحذف اكتب كلمة <b>حذف</b>:</p><input id="wp" placeholder="اكتب: حذف"><div class="row" style="margin-top:14px"><button class="p" style="background:var(--no);border-color:var(--no)" onclick="wipeGo()">حذف كل شيء</button><button onclick="closeM()">إلغاء</button></div>`)}
+async function wipeGo(){
+  if($('#wp').value.trim()!=='حذف')return tst('اكتب كلمة حذف للتأكيد',1);
+  try{await DB.db.ref('students').remove();await DB.db.ref('teachers').remove();
+    DB.D.students=[];DB.D.teachers=[];closeM();tst('تم حذف كل البيانات');go('home')}
+  catch(x){tst('حدث خطأ أثناء حذف البيانات، حاول مرة أخرى',1)}}
+  $('#mn').innerHTML='<p class="mu">جاري تحميل البيانات...</p>';
 DB.load().then(draw).catch(()=>{$('#mn').innerHTML='<div class="card no">تعذر الاتصال بقاعدة البيانات. تأكد من الإنترنت ومن قواعد Realtime Database.</div>'});
 </script></body></html>
