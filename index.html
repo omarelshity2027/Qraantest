@@ -36,9 +36,9 @@ label{display:block;font-size:14px;color:var(--mu);margin:10px 0 4px}
 #ts{position:fixed;bottom:20px;inset-inline:0;text-align:center;z-index:10;pointer-events:none}
 #ts span{background:var(--g);color:#fff;padding:12px 20px;border-radius:12px;display:none}
 #ts span.er{background:var(--no)}
-#fab{position:fixed;left:20px;bottom:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;font-size:36px;line-height:1;border:2px solid var(--au);z-index:6;display:flex;align-items:center;justify-content:center;padding:0 0 4px;animation:gl 2s ease-in-out infinite}
-@keyframes gl{0%,100%{box-shadow:0 0 8px 2px #b8912f88,0 4px 14px #0004}50%{box-shadow:0 0 24px 9px #b8912fdd,0 4px 14px #0004}}
-@media(prefers-reduced-motion:reduce){#fab{animation:none;box-shadow:0 0 14px 4px #b8912f99}}
+#fab{position:fixed;left:20px;bottom:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--g2),var(--g));color:#fff;font-size:36px;line-height:1;border:2px solid #86efac;z-index:6;display:flex;align-items:center;justify-content:center;padding:0 0 4px;animation:gl 2s ease-in-out infinite}
+@keyframes gl{0%,100%{box-shadow:0 0 8px 2px #22c55e88,0 4px 14px #0004}50%{box-shadow:0 0 24px 9px #22c55ecc,0 4px 14px #0004}}
+@media(prefers-reduced-motion:reduce){#fab{animation:none;box-shadow:0 0 14px 4px #22c55e99}}
 @media(max-width:700px){#fab{bottom:calc(84px + env(safe-area-inset-bottom,0px));left:14px}}
 @media print{#fab{display:none}body{background:#fff}}
 #pr{display:none}
@@ -88,7 +88,7 @@ const DB={
   },
   redraw(){clearTimeout(this._t);this._t=setTimeout(()=>{
     if(['eval','import','settings'].includes(st.v))return;
-    if(st.v==='students')list();else if(st.v==='teachers')tl('');else if(st.v==='reports')rep();else draw()},400)},
+    if(st.v==='students')renderList();else if(st.v==='teachers')tl('');else if(st.v==='reports')rep();else draw()},400)},
   get(k){return this.D[k]},
   set(k,v){
     const old=this.D[k];this.D[k]=v;
@@ -111,7 +111,7 @@ const stat=s=>!s.ev?'لم يتم التقييم':s.ev.pct>=ST().pass?'ناجح':
 const cls=s=>({'ناجح':'ok','غير ناجح':'no'}[stat(s)]||'mu');
 const gen=s=>s.gender||(dg(s.nid).length===14?(+dg(s.nid)[12]%2?'ذكر':'أنثى'):'');
 const isDark=()=>{const t=document.documentElement.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme:dark)').matches};
-function toggleTheme(){const t=isDark()?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('qc_theme',t)}catch(x){}draw()}
+function toggleTheme(){const t=isDark()?'light':'dark';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('qc_theme',t)}catch(x){}$('#thm').textContent=isDark()?'☀ نهاري':'☾ ليلي'}
 const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const S={
   dup(x,ex){const n=nn(x.name),i=dg(x.nid);return SS().find(s=>s.id!==ex&&((i&&dg(s.nid)===i)||(n&&nn(s.name)===n)))},
@@ -142,8 +142,8 @@ const conf=(msg,fn)=>{window._cf=()=>{closeM();fn()};modal(`<h3>هل أنت مت
 const go=(v,id)=>{st.v=v;st.id=id||null;scrollTo(0,0);draw()};
 const NAV=[['home','الرئيسية','⌂'],['students','الطلاب','☰'],['teachers','المحفظون','☺'],['reports','التقارير','▤'],['import','استيراد Excel','⇪'],['settings','الإعدادات','⚙']];
 function draw(){
-  $('#nv').innerHTML=`<h2 class="row"><span class="t">${e(ST().name)}</span></h2>`+NAV.map(n=>`<a class="${st.v===n[0]||(st.v==='student'&&n[0]==='students')?'on':''}" onclick="go('${n[0]}')"><span>${n[2]}</span><span class="t">${n[1]}</span></a>`).join('')+`<a onclick="toggleTheme()"><span>${isDark()?'☀':'☾'}</span><span class="t">${isDark()?'نهاري':'ليلي'}</span></a><a id="tg" onclick="$('#nv').classList.toggle('c')"><span>↔</span><span class="t">طي</span></a>`;
-  $('#mn').innerHTML=V[st.v]();if(V[st.v+'_'])V[st.v+'_']()}
+  $('#nv').innerHTML=`<h2 class="row"><span class="t">${e(ST().name)}</span></h2>`+NAV.map(n=>`<a class="${st.v===n[0]||(st.v==='student'&&n[0]==='students')?'on':''}" onclick="go('${n[0]}')"><span>${n[2]}</span><span class="t">${n[1]}</span></a>`).join('')+`<a id="tg" onclick="$('#nv').classList.toggle('c')"><span>↔</span><span class="t">طي</span></a>`;
+  $('#mn').innerHTML=`<div class="row" style="margin-bottom:8px"><span class="mu f">${e(ST().name)}</span><button id="thm" onclick="toggleTheme()" title="تغيير المظهر">${isDark()?'☀ نهاري':'☾ ليلي'}</button></div>`+V[st.v]();if(V[st.v+'_'])V[st.v+'_']()}
 const opt=(a,v,all)=>(all?`<option value="">${all}</option>`:'')+a.map(x=>`<option ${x===v?'selected':''}>${e(x)}</option>`).join('');
 const V={
 home(){const a=SS(),ev=a.filter(s=>s.ev),ps=ev.filter(s=>stat(s)==='ناجح').length;
@@ -151,9 +151,9 @@ home(){const a=SS(),ev=a.filter(s=>s.ev),ps=ev.filter(s=>stat(s)==='ناجح').l
   return`<h2>${e(ST().name)} ${e(ST().year)}</h2><div class="grid">${c.map(x=>`<div class="card st"><b>${x[1]}</b><span>${x[0]}</span></div>`).join('')}</div>
   <div class="card tw"><table><tr><th>المستوى</th><th>عدد الطلاب</th><th>تم تقييمهم</th><th>ناجحون</th></tr>${ST().levels.map(l=>{const x=a.filter(s=>s.level===l);return`<tr><td>${e(l)}</td><td>${x.length}</td><td>${x.filter(s=>s.ev).length}</td><td>${x.filter(s=>stat(s)==='ناجح').length}</td></tr>`}).join('')}</table></div>`},
 students(){const f=st.sf;return`<div class="row"><h2 class="f">الطلاب</h2><button class="p" onclick="stuForm()">+ إضافة طالب</button><button onclick="rmDup()">حذف المكررات</button></div>
-  <div class="card"><input id="q" placeholder="ابحث بالاسم أو الرقم القومي أو الكود أو المحفظ أو الهاتف" value="${e(st.q)}" oninput="st.q=this.value;st.pg=0;list()">
-  <div class="row" style="margin-top:10px"><select class="f" onchange="st.sf.gender=this.value;st.pg=0;list()"><option value="">بنين وبنات</option><option value="ذكر" ${f.gender==='ذكر'?'selected':''}>بنين</option><option value="أنثى" ${f.gender==='أنثى'?'selected':''}>بنات</option></select><select class="f" onchange="st.sf.level=this.value;st.pg=0;list()">${opt(ST().levels,f.level,'كل المستويات')}</select><button onclick="st.sf={};st.q='';st.pg=0;draw()">مسح الفلاتر</button></div><div id="ls"></div></div>`},
-students_(){list()},
+  <div class="card"><input id="q" placeholder="ابحث بالاسم أو الرقم القومي أو الكود أو المحفظ أو الهاتف" value="${e(st.q)}" oninput="st.q=this.value;st.pg=0;renderList()">
+  <div class="row" style="margin-top:10px"><select class="f" onchange="st.sf.gender=this.value;st.pg=0;renderList()"><option value="">بنين وبنات</option><option value="ذكر" ${f.gender==='ذكر'?'selected':''}>بنين</option><option value="أنثى" ${f.gender==='أنثى'?'selected':''}>بنات</option></select><select class="f" onchange="st.sf.level=this.value;st.pg=0;renderList()">${opt(ST().levels,f.level,'كل المستويات')}</select><button onclick="st.sf={};st.q='';st.pg=0;draw()">مسح الفلاتر</button></div><div id="ls"></div></div>`},
+students_(){renderList()},
 student(){const s=SS().find(x=>x.id===st.id);if(!s)return'<p>الطالب غير موجود</p>';const v=s.ev;
   return`<div class="row"><button onclick="go('students')">→ رجوع</button></div><div class="card"><h2>${e(s.name)}</h2>
   <div class="grid"><div>الكود: ${e(s.id)}</div><div>الرقم القومي: ${e(s.nid)}</div><div>العمر: ${age(s.birth)}</div><div>النوع: ${e(gen(s))}</div><div>المحفظ: ${e(s.teacher)}</div><div>المستوى: ${e(s.level)}</div><div>الهاتف: ${e(s.phone)}</div><div>المحافظة: ${e(s.gov)}</div><div>المركز: ${e(s.center)}</div></div>${s.notes?`<p class="mu">ملاحظات إدارية: ${e(s.notes)}</p>`:''}</div>
@@ -175,10 +175,10 @@ import(){return`<h2>استيراد Excel</h2><div class="card"><p class="mu">ا�
 settings(){const s=ST();return`<h2>الإعدادات</h2><div class="card"><h3>إعدادات المسابقة</h3><div class="grid">${[['name','اسم المسابقة'],['org','الجهة المنظمة'],['year','سنة المسابقة'],['pass','نسبة النجاح %'],['minAge','الحد الأدنى للعمر'],['maxAge','الحد الأقصى للعمر']].map(([k,l])=>`<div><label>${l}</label><input id="s_${k}" value="${e(s[k])}"></div>`).join('')}</div><button class="p" style="margin-top:12px" onclick="saveSet()">حفظ الإعدادات</button></div>
   <div class="card"><h3>المستويات</h3>${s.levels.map((l,i)=>`<div class="row" style="margin-top:6px"><input class="f" value="${e(l)}" onchange="lvl(${i},'r',this.value)"><button onclick="lvl(${i},'u')">▲</button><button onclick="lvl(${i},'d')">▼</button><button class="d" onclick="conf('سيتم حذف هذا المستوى من القائمة.',()=>lvl(${i},'x'))">حذف</button></div>`).join('')}<button style="margin-top:10px" onclick="lvl(0,'a')">+ إضافة مستوى</button></div>`}
 };
-function list(){const r=S.search(st.q,st.sf),n=20,p=r.slice(st.pg*n,st.pg*n+n);
+function renderList(){const r=S.search(st.q,st.sf),n=20,p=r.slice(st.pg*n,st.pg*n+n);
   $('#ls').innerHTML=(p.map(s=>`<div class="s"><div><b style="cursor:pointer" onclick="go('student','${s.id}')">${e(s.name)}</b><div class="mu">${e(s.level)} — ${gen(s)||'—'} — <span class="${cls(s)}">${stat(s)}${s.ev?' '+s.ev.pct+'%':''}</span></div></div>
   <div class="row"><button class="p" onclick="go('eval','${s.id}')">تقييم الطالب</button><button onclick="go('student','${s.id}')">فتح</button><button class="w" onclick="S.wa(SS().find(x=>x.id==='${s.id}'))">واتساب</button></div></div>`).join('')||'<p class="mu">لا توجد نتائج</p>')+
-  `<div class="row" style="margin-top:10px"><span class="mu f">${r.length} طالب</span><button ${st.pg?'':'disabled'} onclick="st.pg--;list()">السابق</button><button ${(st.pg+1)*n<r.length?'':'disabled'} onclick="st.pg++;list()">التالي</button></div>`}
+  `<div class="row" style="margin-top:10px"><span class="mu f">${r.length} طالب</span><button ${st.pg?'':'disabled'} onclick="st.pg--;renderList()">السابق</button><button ${(st.pg+1)*n<r.length?'':'disabled'} onclick="st.pg++;renderList()">التالي</button></div>`}
 function stuForm(id){const s=id?SS().find(x=>x.id===id):{};const i=(k,l,t)=>`<label>${l}</label><input id="f_${k}" type="${t||'text'}" value="${e(s[k]||'')}">`;
   modal(`<h3>${id?'تعديل الطالب':'إضافة طالب'}</h3>${i('name','الاسم بالكامل')}${i('nid','الرقم القومي')}${i('birth','تاريخ الميلاد','date')}<label>النوع</label><select id="f_gender"><option value="">تلقائي من الرقم القومي</option><option value="ذكر" ${s.gender==='ذكر'?'selected':''}>ذكر</option><option value="أنثى" ${s.gender==='أنثى'?'selected':''}>أنثى</option></select><label>المحفظ</label><select id="f_teacher">${opt(TS().map(t=>t.name),s.teacher)}</select><label>المستوى</label><select id="f_level">${opt(ST().levels,s.level)}</select>${i('phone','رقم الهاتف','tel')}${i('gov','المحافظة')}${i('center','المركز / المدينة')}${i('notes','ملاحظات إدارية')}
   <div class="row" style="margin-top:14px"><button class="p" onclick="saveStu('${id||''}')">حفظ</button><button onclick="closeM()">إلغاء</button></div>`)}
@@ -187,7 +187,7 @@ function saveStu(id){const x={id:id||undefined};['name','nid','birth','teacher',
   const r=S.saveStudent(x);if(r.dup){closeM();tst('الطالب مسجل بالفعل',1);return go('student',r.dup.id)}
   closeM();tst(id?'تم تعديل بيانات الطالب':'تم حفظ الطالب بنجاح');go('student',r.ok.id)}
 function delStu(id){conf('هل أنت متأكد من حذف هذا الطالب؟ سيتم حذف بياناته ونتيجته.',()=>{S.del(id);tst('تم حذف الطالب');go('students')})}
-function rmDup(){conf('سيتم حذف الأسماء والأرقام القومية المكررة مع الإبقاء على سجل واحد لكل طالب (الذي له تقييم أولًا).',()=>{const n=S.dedupe();tst(n?`تم حذف ${n} سجل مكرر`:'لا توجد سجلات مكررة');list()})}
+function rmDup(){conf('سيتم حذف الأسماء والأرقام القومية المكررة مع الإبقاء على سجل واحد لكل طالب (الذي له تقييم أولًا).',()=>{const n=S.dedupe();tst(n?`تم حذف ${n} سجل مكرر`:'لا توجد سجلات مكررة');renderList()})}
 function saveEv(id){const p=$('#e_pct').value;if(p===''||isNaN(p)||+p<0||+p>100)return tst('يرجى إدخال نسبة صحيحة بين 0 و100',1);
   const v={pct:+p,by:SS().find(x=>x.id===id).teacher||'—'};['general','tajweed','perf','hifz','other'].forEach(k=>v[k]=$('#e_'+k).value.trim());
   S.saveEval(id,v);tst('تم حفظ تقييم الطالب بنجاح');go('student',id)}
