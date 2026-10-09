@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>نظام مسابقة حفظ القرآن الكريم</title>
 <script>try{var t=localStorage.getItem('qc_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(x){}</script>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -44,9 +44,63 @@ label{display:block;font-size:14px;color:var(--mu);margin:10px 0 4px}
 @media print{#fab{display:none}body{background:#fff}}
 #pr{display:none}
 @media(max-width:700px){nav{position:fixed;bottom:0;top:auto;height:auto;width:100%;display:flex;gap:2px;padding:4px;z-index:5;border-top:1px solid var(--bd);overflow-x:auto;padding-bottom:calc(4px + env(safe-area-inset-bottom,0px))}nav h2,#tg{display:none}nav a{flex-direction:column;align-items:center;font-size:11px;gap:2px;padding:6px 8px;white-space:nowrap}nav.c{width:100%}nav.c .t{display:inline}main{padding:12px 12px 90px}}
-@media print{#app,#md,#ts,#top{display:none!important}#pr{display:block;color:#000;background:#fff}.rs{page-break-inside:avoid}}
-.rs{border:3px double var(--au);padding:30px;text-align:center;font-size:18px;margin-bottom:20px}
-</style></head><body>
+@media print{#app,#md,#ts,#top{display:none!important}#pr{display:block;color:#000;background:#fff}:root{padding:0!important}html,body{background:#fff!important}}
+
+#pr,#pr *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-sizing:border-box}
+#pr .cert{position:relative;width:297mm;height:209mm;overflow:hidden;break-after:page;page-break-after:always;background:radial-gradient(circle at 50% 45%,#fdfaf0 0%,#f2eacf 100%);color:#26301a;text-align:center;font-family:Tajawal,Tahoma,sans-serif}
+#pr .cert:last-child{break-after:auto;page-break-after:auto}
+#pr .cb1{position:absolute;inset:6mm;border:2.4mm solid #14532d}
+#pr .cb2{position:absolute;inset:10.8mm;border:.5mm solid #b8912f}
+#pr .cb3{position:absolute;inset:12.6mm;border:.25mm solid #14532d99}
+#pr .cn{position:absolute;width:17mm;height:17mm}
+#pr .cn svg{width:100%;height:100%}
+#pr .cn.tl{top:13mm;left:13mm}#pr .cn.tr{top:13mm;right:13mm;transform:scaleX(-1)}#pr .cn.bl{bottom:13mm;left:13mm;transform:scaleY(-1)}#pr .cn.br{bottom:13mm;right:13mm;transform:scale(-1,-1)}
+#pr .ci{position:absolute;inset:17mm 24mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+#pr .bis{font-family:Amiri,'Traditional Arabic',serif;font-size:21pt;color:#14532d}
+#pr .org{font-size:12.5pt;color:#8a6a14;font-weight:700}
+#pr .cmp{font-size:11pt;color:#4a5a2c}
+#pr .tt{font-family:Amiri,'Traditional Arabic',serif;font-size:42pt;font-weight:700;color:#14532d;line-height:1.1}
+#pr .tx1{font-size:14pt;margin-bottom:1mm}
+#pr .nm{font-family:Amiri,'Traditional Arabic',serif;font-size:32pt;font-weight:700;color:#14532d;padding:0 14mm 1mm;border-bottom:.6mm solid #b8912f;display:inline-block;line-height:1.35}
+#pr .tx2{font-size:14pt;line-height:1.9;margin-top:2mm}
+#pr .tx2 b{color:#14532d}
+#pr .dua{font-family:Amiri,'Traditional Arabic',serif;font-size:13pt;color:#8a6a14}
+#pr .sig{display:flex;justify-content:space-between;align-items:flex-end;width:100%;gap:6mm}
+#pr .sg{flex:1;text-align:center}
+#pr .sg i{display:block;font-style:normal;color:#8a6a14;font-size:9pt;margin-bottom:1mm}
+#pr .sg b{display:block;border-top:.3mm solid #14532d;padding-top:1.5mm;font-size:11.5pt;color:#14532d}
+#pr .meta{font-size:8.5pt;color:#6b7a50}
+#pr .rp{font-family:Tajawal,Tahoma,sans-serif;color:#1f2a14;font-size:10.5pt}
+#pr .rh{background:#14532d;color:#f6f0df;border-bottom:1.2mm solid #b8912f;border-radius:2mm;padding:4mm 5mm;display:flex;justify-content:space-between;align-items:center}
+#pr .rh h1{margin:0;font-size:17pt;font-family:Amiri,'Traditional Arabic',serif;line-height:1.3}
+#pr .rh small{display:block;color:#e7d9a8;font-size:9.5pt}
+#pr .rh .l{text-align:left}
+#pr .fd{background:#f6f0df;border:.3mm solid #d9cfae;border-radius:2mm;padding:2mm 4mm;margin:3mm 0;font-size:9.5pt;color:#4a5a2c}
+#pr .kp{display:grid;grid-template-columns:repeat(6,1fr);gap:2mm;margin-bottom:3mm}
+#pr .kp div{background:#f6f0df;border-radius:2mm;text-align:center;padding:2mm}
+#pr .kp b{display:block;font-size:14pt;color:#14532d}#pr .kp span{font-size:8.5pt;color:#6b7a50}
+#pr .rp table{width:100%;border-collapse:collapse;font-size:9.5pt}
+#pr .rp thead{display:table-header-group}
+#pr .rp th{background:#14532d;color:#f6f0df;padding:2mm;text-align:right;white-space:normal;border:0}
+#pr .rp td{padding:1.6mm 2mm;border-bottom:.2mm solid #e3dcc3;text-align:right;white-space:normal}
+#pr .rp tr{break-inside:avoid;page-break-inside:avoid}
+#pr .rp tbody tr:nth-child(even) td{background:#faf6e8}
+#pr .okc{color:#166534;font-weight:700}#pr .noc{color:#b91c1c;font-weight:700}#pr .muc{color:#8a8f80}
+#pr .rf{margin-top:8mm;display:flex;justify-content:space-between;gap:4mm;break-inside:avoid;text-align:center;font-size:9.5pt}
+#pr .rf div{flex:1;border-top:.3mm solid #14532d;padding-top:1.5mm}
+#pr .rf i{display:block;font-style:normal;color:#8a6a14;font-size:8.5pt}
+#pr .rf b{color:#14532d}
+#pr .rd{text-align:center;margin-top:4mm;font-size:8.5pt;color:#8a8f80}
+#pr .ig{display:grid;grid-template-columns:1fr 1fr;gap:2mm 6mm;margin:5mm 0}
+#pr .ig div{border-bottom:.2mm dashed #cfc6a3;padding:1.5mm 0}
+#pr .ig span{color:#8a6a14;font-size:9pt;margin-inline-end:2mm}
+#pr .sb{text-align:center;margin:6mm 0}
+#pr .sb .n{font-size:54pt;font-weight:700;color:#14532d;line-height:1.1}
+#pr .sb .s{font-size:16pt;font-weight:700}
+#pr .br{margin:3mm 0}#pr .br span{display:flex;justify-content:space-between;font-size:10pt;margin-bottom:1mm}
+#pr .br i{display:block;height:3mm;background:#e8e0c4;border-radius:2mm;overflow:hidden}#pr .br em{display:block;height:100%;background:#14532d}
+#pr .nt{background:#faf6e8;border-right:1.2mm solid #b8912f;padding:3mm 4mm;margin:2mm 0;font-size:10pt}
+</style><style id="pg"></style></head><body>
 <div id="top"></div>
 <div id="app"><nav id="nv"></nav><main id="mn"></main></div>
 <div id="md"><div id="mb"></div></div><div id="ts"><span id="tx"></span></div><button id="fab" title="إضافة طالب" aria-label="إضافة طالب" onclick="stuForm()">+</button><div id="pr"></div>
@@ -215,7 +269,7 @@ student(){const s=SS().find(x=>x.id===st.id);if(!s)return'<p>الطالب غير
   <div class="card"><div class="big">${v?v.pct+'%':'—'}</div><h2 class="${cls(s)}" style="text-align:center">${stat(s)}</h2>
   ${v&&v.sc?`<p class="mu" style="text-align:center">الحفظ ${v.sc.hifz} — التجويد ${v.sc.tajweed} — الأداء ${v.sc.perf}</p>`:''}
   ${v?[['general','ملاحظات عامة'],['tajweed','التجويد'],['perf','القراءة والأداء'],['hifz','الحفظ'],['other','ملاحظات أخرى']].map(([k,l])=>v[k]?`<p><b>${l}:</b> ${e(v[k])}</p>`:'').join('')+`<p class="mu">قيّمه: ${e(v.by)} — ${new Date(v.at).toLocaleString('ar-EG')}${v.log.length?` — عدد التعديلات: ${v.log.length}`:''}</p>`:''}</div>
-  <div class="row"><button onclick="stuForm('${s.id}')">تعديل البيانات</button><button class="p" onclick="go('eval','${s.id}')">تقييم الطالب</button><button onclick="printRes('${s.id}')">طباعة النتيجة</button><button class="w" onclick="S.wa(SS().find(x=>x.id==='${s.id}'))">إرسال واتساب</button><button class="d" onclick="delStu('${s.id}')">حذف</button></div>`},
+  <div class="row"><button onclick="stuForm('${s.id}')">تعديل البيانات</button><button class="p" onclick="go('eval','${s.id}')">تقييم الطالب</button><button onclick="printRes('${s.id}')">طباعة النتيجة</button><button onclick="certOne('${s.id}')">طباعة شهادة</button><button class="w" onclick="S.wa(SS().find(x=>x.id==='${s.id}'))">إرسال واتساب</button><button class="d" onclick="delStu('${s.id}')">حذف</button></div>`},
 eval(){const s=SS().find(x=>x.id===st.id),v=s.ev||{},sc=v.sc||{},w=W();
   const ta=(k,l)=>`<label>${l}</label><textarea id="e_${k}" rows="3">${e(v[k]||'')}</textarea>`;
   const nm=(k,l)=>`<div><label>${l} (من 100 — الوزن ${w[k]}%)</label><input id="e_s_${k}" type="number" min="0" max="100" step="0.5" value="${sc[k]??''}" oninput="calcPct()"></div>`;
@@ -228,7 +282,7 @@ eval(){const s=SS().find(x=>x.id===st.id),v=s.ev||{},sc=v.sc||{},w=W();
   <div class="row" style="margin-top:14px"><button class="p f" style="font-size:18px;padding:14px" onclick="saveEv('${s.id}')">حفظ التقييم</button><button onclick="go('student','${s.id}')">إلغاء</button></div></div>`},
 teachers(){return`<div class="row"><h2 class="f">المحفظون</h2><button class="p" onclick="tForm()">+ إضافة محفظ</button></div><div class="card"><input placeholder="بحث عن محفظ" oninput="tl(this.value)"><div id="tl"></div></div>`},
 teachers_(){tl('')},
-ranks(){return`<h2>ترتيب الأوائل</h2><div class="card"><div class="row"><select id="rl" class="f" onchange="st.rl=this.value;rk()">${opt(ST().levels,st.rl,'اختر المستوى')}</select><label class="mu" style="margin:0">عدد الأوائل</label><input type="number" min="1" value="${st.rn}" style="width:80px" onchange="st.rn=+this.value||3;rk()"><button onclick="certs()">طباعة شهادات الأوائل</button></div><p class="mu">الترتيب للناجحين فقط، والتساوي في النسبة = نفس المركز.</p></div><div class="card tw" id="rk"></div>`},
+ranks(){return`<h2>ترتيب الأوائل</h2><div class="card"><div class="row"><select id="rl" class="f" onchange="st.rl=this.value;rk()">${opt(ST().levels,st.rl,'اختر المستوى')}</select><label class="mu" style="margin:0">عدد الأوائل</label><input type="number" min="1" value="${st.rn}" style="width:80px" onchange="st.rn=+this.value||3;rk()"><button onclick="certs()">شهادات الأوائل</button><button onclick="certs(1)">شهادات كل الناجحين</button></div><p class="mu">الترتيب للناجحين فقط، والتساوي في النسبة = نفس المركز.</p></div><div class="card tw" id="rk"></div>`},
 ranks_(){rk()},
 reports(){const f=st.f;return`<h2>التقارير</h2><div class="card"><div class="row"><input class="f" placeholder="بحث سريع" value="${e(st.q)}" oninput="st.q=this.value;rep()">
   <button onclick="$('#fl').hidden=!$('#fl').hidden">فلاتر</button><button onclick="exXl()">Excel</button><button onclick="printRep()">PDF / طباعة</button></div>
@@ -236,7 +290,7 @@ reports(){const f=st.f;return`<h2>التقارير</h2><div class="card"><div cl
 reports_(){rep()},
 import(){return`<h2>استيراد Excel</h2><div class="card"><p class="mu">الأعمدة: الاسم، الرقم القومي، تاريخ الميلاد (اختياري، يُستخرج من الرقم القومي)، المحفظ (لو أكتر من شيخ افصل بينهم بـ «،»)، المستوى، رقم الهاتف، المحافظة، المركز، ملاحظات، النوع (اختياري)</p><input type="file" accept=".xlsx,.xls,.csv" onchange="impFile(this.files[0])"><div id="ip"></div></div>`},
 settings(){const s=ST(),dw={wh:50,wt:30,wp:20};return`<h2>الإعدادات</h2><div class="card"><h3>إعدادات المسابقة</h3><div class="grid">${[['name','اسم المسابقة'],['org','الجهة المنظمة'],['year','سنة المسابقة'],['pass','نسبة النجاح %'],['minAge','الحد الأدنى للعمر'],['maxAge','الحد الأقصى للعمر']].map(([k,l])=>`<div><label>${l}</label><input id="s_${k}" value="${e(s[k])}"></div>`).join('')}</div>
-  <h3>أوزان معايير التقييم (المجموع 100)</h3><div class="grid">${[['wh','الحفظ %'],['wt','التجويد %'],['wp','القراءة والأداء %']].map(([k,l])=>`<div><label>${l}</label><input id="s_${k}" type="number" value="${e(s[k]??dw[k])}"></div>`).join('')}</div><button class="p" style="margin-top:12px" onclick="saveSet()">حفظ الإعدادات</button></div>
+  <h3>أوزان معايير التقييم (المجموع 100)</h3><div class="grid">${[['wh','الحفظ %'],['wt','التجويد %'],['wp','القراءة والأداء %']].map(([k,l])=>`<div><label>${l}</label><input id="s_${k}" type="number" value="${e(s[k]??dw[k])}"></div>`).join('')}</div><h3>بيانات الشهادة والتقرير</h3><div class="grid">${[['mosque','تحت إدارة','m'],['sup1','الإشراف الأول','a'],['sup2','الإشراف الثاني','b'],['exec','التنفيذ','c']].map(([k,l,d])=>`<div><label>${l}</label><input id="s_${k}" value="${e(CR()[d])}"></div>`).join('')}</div><button class="p" style="margin-top:12px" onclick="saveSet()">حفظ الإعدادات</button></div>
   <div class="card"><h3>المستويات</h3>${s.levels.map((l,i)=>`<div class="row" style="margin-top:6px"><input class="f" value="${e(l)}" onchange="lvl(${i},'r',this.value)"><button onclick="lvl(${i},'u')">▲</button><button onclick="lvl(${i},'d')">▼</button><button class="d" onclick="conf('سيتم حذف هذا المستوى من القائمة (الطلاب المسجلون فيه يحتفظون باسم المستوى).',()=>lvl(${i},'x'))">حذف</button></div>`).join('')}<button style="margin-top:10px" onclick="lvl(0,'a')">+ إضافة مستوى</button></div>
   <div class="card"><h3>نسخة احتياطية</h3><p class="mu">نزّل نسخة قبل أي عملية كبيرة. الحذف الشامل وحذف المكررات والاستعادة بتنزّل نسخة تلقائيًا.</p><div class="row"><button class="p" onclick="backup('manual')">تنزيل نسخة احتياطية</button><label class="btn" style="margin:0;cursor:pointer">استعادة من ملف<input type="file" accept=".json" hidden onchange="restore(this.files[0]);this.value=''"></label></div></div>
   <div class="card"><h3 class="no">منطقة الخطر</h3><p class="mu">حذف جميع الطلاب والمحفظين نهائيًا (مع تنزيل نسخة احتياطية تلقائيًا).</p><button class="d" onclick="wipeAll()">حذف كل البيانات</button></div>`}
@@ -285,18 +339,45 @@ const sf=(k,v)=>{st.f[k]=v;rep()};
 function rep(){const r=S.search(st.q,st.f,'score');$('#rp').innerHTML=`<p class="mu">${r.length} طالب</p><table><tr><th>الاسم</th><th>الكود</th><th>المستوى</th><th>المحفظ</th><th>النسبة</th><th>الحالة</th><th>تاريخ التقييم</th></tr>${r.map(s=>`<tr><td>${e(s.name)}</td><td>${e(s.code||s.id)}</td><td>${e(s.level)}</td><td>${e(tn(s))}</td><td>${s.ev?s.ev.pct+'%':'-'}</td><td class="${cls(s)}">${stat(s)}</td><td>${s.ev?new Date(s.ev.at).toLocaleDateString('ar-EG'):'-'}</td></tr>`).join('')}</table>`}
 function exXl(){const r=S.search(st.q,st.f,'score').map(s=>({'الاسم':s.name,'الكود':s.code||s.id,'الرقم القومي':s.nid,'النوع':gen(s),'المستوى':s.level,'المحفظ':tn(s),'النسبة':s.ev?s.ev.pct:'','الحفظ':s.ev?.sc?.hifz??'','التجويد':s.ev?.sc?.tajweed??'','الأداء':s.ev?.sc?.perf??'','الحالة':stat(s),'المقيّم':s.ev?.by||'','ملاحظات عامة':s.ev?.general||'','ملاحظات التجويد':s.ev?.tajweed||'','القراءة والأداء':s.ev?.perf||'','ملاحظات الحفظ':s.ev?.hifz||'','أخرى':s.ev?.other||'','تاريخ التقييم':s.ev?new Date(s.ev.at).toLocaleString('ar-EG'):''}));
   try{const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(r),'التقرير');XLSX.writeFile(wb,'report.xlsx')}catch(x){tst('حدث خطأ أثناء التصدير، حاول مرة أخرى',1)}}
-function pr(h){$('#pr').innerHTML=h;window.print()}
-function printRep(){const r=S.search(st.q,st.f,'score');pr(`<h2 style="text-align:center">${e(ST().name)} — تقرير</h2><table border="1" cellpadding="5" style="width:100%;border-collapse:collapse"><tr><th>الاسم</th><th>الكود</th><th>المستوى</th><th>المحفظ</th><th>النسبة</th><th>الحالة</th><th>الملاحظات</th><th>التاريخ</th></tr>${r.map(s=>`<tr><td>${e(s.name)}</td><td>${e(s.code||s.id)}</td><td>${e(s.level)}</td><td>${e(tn(s))}</td><td>${s.ev?s.ev.pct+'%':'-'}</td><td>${stat(s)}</td><td>${e(s.ev?.general||'')}</td><td>${s.ev?new Date(s.ev.at).toLocaleDateString('ar-EG'):'-'}</td></tr>`).join('')}</table>`)}
-function printRes(id){const s=SS().find(x=>x.id===id),v=s.ev;if(!v)return tst('لم يتم تقييم الطالب بعد',1);
-  pr(`<div class="rs"><h1>${e(ST().name)} ${e(ST().year)}</h1><p>${e(ST().org)}</p><hr><h2>${e(s.name)}</h2><p>الكود: ${e(s.code||s.id)} — المستوى: ${e(s.level)}</p><div style="font-size:60px;font-weight:700">${v.pct}%</div><h2>${stat(s)}</h2><p>المحفظ: ${e(tn(s))}</p>${v.general?`<p>ملاحظات المحفظ: ${e(v.general)}</p>`:''}<p>تاريخ التقييم: ${new Date(v.at).toLocaleDateString('ar-EG')}</p></div>`)}
+async function pr(h,o){$('#pg').textContent=o==='l'?'@page{size:A4 landscape;margin:0}':'@page{size:A4 portrait;margin:11mm 10mm 13mm;@bottom-center{content:counter(page);font-size:9pt;color:#8a8f80}}';$('#pr').innerHTML=h;
+  try{await Promise.all([document.fonts.load('700 20px Amiri','بسم الله'),document.fonts.load('400 14px Tajawal','بسم الله'),document.fonts.load('700 14px Tajawal','بسم الله')])}catch(x){}
+  window.print()}
+const CR=()=>{const s=ST();return{m:s.mosque??'مسجد السلام',a:s.sup1??'الباشمهندس محمد عبدالوهاب',b:s.sup2??'الشيخ عبدالمنعم عبدالوهاب',c:s.exec??'الشيخ عمر الشيتي'}};
+const ad=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const rhead=t=>{const c=CR();return`<div class="rh"><div><small>تحت إدارة</small><h1>${e(c.m)}</h1></div><div class="l"><h1>${e(ST().name)} ${e(ST().year)}</h1><small>${t}</small></div></div>`};
+const rfoot=()=>{const c=CR();return`<div class="rf"><div><i>إشراف</i><b>${e(c.a)}</b></div><div><i>إشراف</i><b>${e(c.b)}</b></div><div><i>تنفيذ</i><b>${e(c.c)}</b></div></div><div class="rd">تحت إدارة ${e(c.m)} — تاريخ الطباعة: ${new Date().toLocaleDateString('ar-EG')}</div>`};
+const fdesc=()=>{const f=st.f,p=[];if(st.q)p.push('بحث: '+st.q);if(f.level)p.push('المستوى: '+f.level);if(f.teacher)p.push('المحفظ: '+((TS().find(t=>t.id===f.teacher)||{}).name||''));if(f.st)p.push('الحالة: '+f.st);if(f.gender)p.push(f.gender==='ذكر'?'بنين':'بنات');if(f.gov)p.push('المحافظة: '+f.gov);if(f.min)p.push('نسبة ≥ '+f.min);if(f.max)p.push('نسبة ≤ '+f.max);return p.join(' • ')||'جميع الطلاب'};
+function printRep(){const r=S.search(st.q,st.f,'score'),ev=r.filter(s=>s.ev),ps=ev.filter(s=>stat(s)==='ناجح').length,avg=ev.length?Math.round(ev.reduce((a,s)=>a+s.ev.pct,0)/ev.length*10)/10:0;
+  pr(`<div class="rp">${rhead('تقرير النتائج')}<div class="fd">${e(fdesc())}</div><div class="kp">${[['عدد الطلاب',r.length],['تم تقييمهم',ev.length],['ناجح',ps],['غير ناجح',ev.length-ps],['نسبة النجاح',ev.length?Math.round(ps/ev.length*100)+'%':'—'],['المتوسط',ev.length?avg+'%':'—']].map(([l,v])=>`<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+  <table><thead><tr><th>م</th><th>الاسم</th><th>الكود</th><th>المستوى</th><th>المحفظون</th><th>النسبة</th><th>الحالة</th></tr></thead><tbody>${r.map((s,i)=>`<tr><td>${i+1}</td><td><b>${e(s.name)}</b></td><td>${e(s.code||s.id)}</td><td>${e(s.level)}</td><td>${e(tn(s))}</td><td>${s.ev?s.ev.pct+'%':'-'}</td><td class="${{'ناجح':'okc','غير ناجح':'noc'}[stat(s)]||'muc'}">${stat(s)}</td></tr>`).join('')}</tbody></table>${rfoot()}</div>`,'p')}
+function printRes(id){const s=SS().find(x=>x.id===id),v=s&&s.ev;if(!v)return tst('لم يتم تقييم الطالب بعد',1);
+  const w=W(),sc=v.sc,nts=[['general','ملاحظات عامة'],['tajweed','التجويد'],['perf','القراءة والأداء'],['hifz','الحفظ'],['other','أخرى']].filter(([k])=>v[k]);
+  pr(`<div class="rp">${rhead('بطاقة نتيجة طالب')}<div class="ig"><div><span>الاسم</span><b>${e(s.name)}</b></div><div><span>الكود</span>${e(s.code||s.id)}</div><div><span>المستوى</span>${e(s.level)}</div><div><span>المحفظون</span>${e(tn(s))||'-'}</div><div><span>النوع</span>${e(gen(s))||'-'}</div><div><span>العمر</span>${age(s)||'-'}</div></div>
+  <div class="sb"><div class="n">${v.pct}%</div><div class="s ${stat(s)==='ناجح'?'okc':'noc'}">${stat(s)}</div></div>
+  ${sc?[['hifz','الحفظ'],['tajweed','التجويد'],['perf','القراءة والأداء']].map(([k,l])=>`<div class="br"><span><b>${l}</b><b>${sc[k]} / 100 (الوزن ${w[k]}%)</b></span><i><em style="width:${sc[k]}%"></em></i></div>`).join(''):''}
+  ${nts.map(([k,l])=>`<div class="nt"><b>${l}:</b> ${e(v[k])}</div>`).join('')}
+  <div class="rd" style="text-align:right">المقيّم: ${e(v.by||'-')} — تاريخ التقييم: ${new Date(v.at).toLocaleDateString('ar-EG')}</div>${rfoot()}</div>`,'p')}
 /* ===== الأوائل والشهادات ===== */
 const ORD={1:'الأول',2:'الثاني',3:'الثالث'};
 const rl=l=>{const a=SS().filter(s=>s.level===l&&s.ev&&stat(s)==='ناجح').sort((x,y)=>y.ev.pct-x.ev.pct||cmp(x,y));let r=0;return a.map((s,i)=>{if(!i||s.ev.pct!==a[i-1].ev.pct)r=i+1;return{s,r}})};
 function rk(){const l=st.rl,n=st.rn||3;if(!l)return $('#rk').innerHTML='<p class="mu">اختر مستوى لعرض الترتيب</p>';const a=rl(l);
   $('#rk').innerHTML=a.length?`<table><tr><th>المركز</th><th>الاسم</th><th>الكود</th><th>المحفظ</th><th>النسبة</th><th></th></tr>${a.map(({s,r})=>`<tr style="${r<=n?'font-weight:700;color:var(--au)':''}"><td>${r}</td><td>${e(s.name)}</td><td>${e(s.code||s.id)}</td><td>${e(tn(s))}</td><td>${s.ev.pct}%</td><td><button onclick="cert('${s.id}',${r})">شهادة</button></td></tr>`).join('')}</table>`:'<p class="mu">لا يوجد ناجحون في هذا المستوى بعد</p>'}
-const cr=(s,r)=>`<div class="rs"><h1>${e(ST().name)} ${e(ST().year)}</h1><p>${e(ST().org)}</p><hr><h3>شهادة تقدير</h3><h2>${e(s.name)}</h2><p>${r?`حصل على المركز ${ORD[r]||r} في مستوى ${e(s.level)}`:`اجتاز مستوى ${e(s.level)} بنجاح`}</p><div style="font-size:48px;font-weight:700">${s.ev.pct}%</div><p>الكود: ${e(s.code||s.id)} — المحفظ: ${e(tn(s))}</p><p>${new Date(s.ev.at).toLocaleDateString('ar-EG')}</p></div>`;
-function cert(id,r){const s=SS().find(x=>x.id===id);if(s&&s.ev)pr(cr(s,r))}
-function certs(){const l=st.rl;if(!l)return tst('اختر مستوى أولًا',1);const a=rl(l).filter(x=>x.r<=(st.rn||3));if(!a.length)return tst('لا يوجد أوائل لطباعتهم',1);pr(a.map(({s,r})=>cr(s,r)).join(''))}
+const CORNER=`<svg viewBox="0 0 60 60"><g fill="none" stroke="#b8912f" stroke-width="1.6"><path d="M2 2H44M2 2V44"/><path d="M8 8H34M8 8V34" stroke-width=".9"/><path d="M14 14H24M14 14V24" stroke-width=".7"/></g><circle cx="5" cy="5" r="3" fill="#b8912f"/></svg>`;
+const STAR=`<svg viewBox="0 0 200 20" width="60mm" height="6mm"><path d="M0 10H84M116 10H200" stroke="#b8912f" stroke-width="1"/><path d="M100 1L103.5 8.5L111 10L103.5 11.5L100 19L96.5 11.5L89 10L96.5 8.5Z" fill="#b8912f"/></svg>`;
+const SEAL=(t,fs)=>`<svg viewBox="0 0 100 100" width="26mm" height="26mm" style="flex:0 0 26mm"><circle cx="50" cy="50" r="47" fill="#b8912f"/><circle cx="50" cy="50" r="42" fill="#14532d"/><circle cx="50" cy="50" r="36" fill="none" stroke="#e7d9a8" stroke-width="1"/><path d="M50 14L53 21L60 22L55 27L56 34L50 30L44 34L45 27L40 22L47 21Z" fill="#e7d9a8"/><text x="50" y="68" text-anchor="middle" font-size="${fs}" font-family="Amiri,Tajawal,serif" font-weight="700" fill="#f6f0df">${t}</text></svg>`;
+const cr=(s,r)=>{const c=CR(),f=gen(s)==='أنثى',v=s.ev,
+  rk=r?`${f?'حصلت':'حصل'} على <b>المركز ${ORD[r]||ad(r)}</b>`:`${f?'اجتازت':'اجتاز'} بنجاح`;
+  return`<div class="cert"><div class="cb1"></div><div class="cb2"></div><div class="cb3"></div>${['tl','tr','bl','br'].map(k=>`<div class="cn ${k}">${CORNER}</div>`).join('')}
+  <div class="ci"><div><div class="bis">بسم الله الرحمن الرحيم</div><div class="org">تحت إدارة ${e(c.m)}</div><div class="cmp">${e(ST().name)} — ${ad(ST().year)}</div></div>
+  <div><div class="tt">شهادة تقدير</div>${STAR}</div>
+  <div><div class="tx1">تشهد إدارة ${e(c.m)} بأن ${f?'الطالبة':'الطالب'}</div><div class="nm">${e(s.name)}</div>
+  <div class="tx2">قد ${rk} في مستوى <b>${e(s.level)}</b><br>بنسبة <b>${ad(v.pct)}٪</b> في ${e(ST().name)} لعام ${ad(ST().year)}</div></div>
+  <div class="dua">نسأل الله أن ينفع ${f?'بها':'به'} وأن يجعل القرآن ربيع قلب${f?'ها':'ه'} ونور صدر${f?'ها':'ه'}</div>
+  <div class="sig"><div class="sg"><i>إشراف</i><b>${e(c.a)}</b></div><div class="sg"><i>إشراف</i><b>${e(c.b)}</b></div>${r?SEAL(ad(r),40):SEAL('ناجح',22)}<div class="sg"><i>تنفيذ</i><b>${e(c.c)}</b></div></div>
+  <div class="meta">رقم الشهادة: ${e(s.code||s.id)} — ${new Date(v.at).toLocaleDateString('ar-EG')}</div></div></div>`};
+function cert(id,r){const s=SS().find(x=>x.id===id);if(s&&s.ev)pr(cr(s,r<=(st.rn||3)?r:0),'l')}
+function certs(all){const l=st.rl;if(!l)return tst('اختر مستوى أولًا',1);const n=st.rn||3,a=rl(l).filter(x=>all||x.r<=n);if(!a.length)return tst('لا يوجد طلاب لطباعة شهاداتهم',1);pr(a.map(({s,r})=>cr(s,r<=n?r:0)).join(''),'l')}
+function certOne(id){const s=SS().find(x=>x.id===id);if(!s||!s.ev||stat(s)!=='ناجح')return tst('الشهادة للطلاب الناجحين فقط',1);const x=rl(s.level).find(z=>z.s.id===id);pr(cr(s,x&&x.r<=(st.rn||3)?x.r:0),'l')}
 /* ===== استيراد Excel ===== */
 const xd=v=>{if(v instanceof Date&&!isNaN(v))return new Date(v.getTime()-v.getTimezoneOffset()*60000+432e5).toISOString().slice(0,10);
   if(typeof v==='number'&&v>10000&&v<80000)return new Date(Math.round((v-25569)*864e5)).toISOString().slice(0,10);
@@ -318,7 +399,7 @@ async function impOk(){const rows=(st.imp||[]).filter(x=>x.s==='جديد').map((
   const c0=await DB.codes(rows.length),now=new Date().toISOString();
   const n=rows.map((x,i)=>({...x,id:uid('S'),code:DB.fmt(c0+i),reg:now,status:'مسجل'}));
   if(nt.length)DB.set('teachers',[...TS(),...nt]);DB.save();DB.set('students',[...n,...SS()]);tst(`تم استيراد ${n.length} طالب`);go('students')}
-function saveSet(){const s=ST();['name','org'].forEach(k=>s[k]=$('#s_'+k).value);['year','pass','minAge','maxAge','wh','wt','wp'].forEach(k=>s[k]=+$('#s_'+k).value||0);
+function saveSet(){const s=ST();['name','org','mosque','sup1','sup2','exec'].forEach(k=>s[k]=$('#s_'+k).value);['year','pass','minAge','maxAge','wh','wt','wp'].forEach(k=>s[k]=+$('#s_'+k).value||0);
   if(s.pass<0||s.pass>100)return tst('يرجى إدخال نسبة صحيحة بين 0 و100',1);
   if(s.wh+s.wt+s.wp!==100)return tst('مجموع أوزان المعايير لازم يساوي 100',1);
   DB.set('settings',s);tst('تم حفظ الإعدادات');draw()}
